@@ -10,10 +10,13 @@
     width: 100%;
     overflow-x: hidden;
     cursor: default;
+    background-size: 100% 100%;
    }
 
    p {
     font-family: 'Montserrat', sans-serif;
+    color: white;
+    /* font-weight: 600; */
    }
 
    /* classes */
@@ -22,7 +25,7 @@
     height: 100vh;
     width: 100vw;
     overflow-x: hidden;
-    background-color: brown;
+    
     position: relative;
    }
 
@@ -36,6 +39,14 @@
    .sentence {
        text-align: center;
        font-size: 2em;
-       margin-top: 2em;
+       margin-top: 4em;
        padding: 0 0.5em;
+   }
+
+   .logo {
+     position: absolute;
+     margin: 1em;
+     top: 0;
+     right: 0;
+     width: 6vh;
    }
