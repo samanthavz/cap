@@ -1,3 +1,11 @@
+//websockets
+
+const ws = new WebSocket("ws://localhost:8000");
+
+ws.addEventListener("open", () => {
+    console.log("We are connected!");
+})
+
 // button click function
 
 let p = document.getElementById("p");
@@ -24,14 +32,16 @@ function countdown() {
     p.innerHTML = "Press the button if you know the answer";
 };
 
-//background image png/jpg check
 
-var fs = require('fs');
-var files = fs.readdirSync('../images/background*');
 
-var body = document.getElementById("body");
+// //background image png/jpg check
 
-body.style.backgroundImage = files[0];
+// var fs = require('fs');
+// var files = fs.readdirSync('../images/background*');
+
+// var body = document.getElementById("body");
+
+// body.style.backgroundImage = files[0];
 
 
 // background-image: url("../images/background.jpg");
