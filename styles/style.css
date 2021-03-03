@@ -18,12 +18,58 @@
    p {
     font-family: 'Montserrat', sans-serif;
     color: white;
-    /* font-weight: 600; */
    }
 
    /* classes */
 
+   /*---------------------------------------*/
+   /*            form section               */
+   /*---------------------------------------*/
+
+   .formdiv {
+    display: block;
+    height: 100vh;
+    width: 100vw;
+    overflow-x: hidden;
+    position: relative;
+   }
+
+   .formdiv h1{
+    color: white;
+    text-align: center;
+    margin: 2em 0 1em 0;
+    font-size: 3em;
+   }
+
+   .formdiv form {
+     position: absolute;
+     left: calc(50% - 158px);
+     display: flex;
+     flex-direction: column;
+     align-items: center;
+   }
+
+   .formdiv form input[type=text] {
+    width: 10em;
+    height: 2em;
+    font-size: 2em;
+  }
+
+  .formdiv form input[type=button] {
+    width: 7em;
+    height: 2em;
+    margin-top: 1em;
+    font-size: 1.5em;
+  }
+
+
+   /*------------------------------------------*/
+   /*               main section               */
+   /*------------------------------------------*/
+
+
    .maindiv {
+    display: none;
     height: 100vh;
     width: 100vw;
     overflow-x: hidden;

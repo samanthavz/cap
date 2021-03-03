@@ -4,7 +4,34 @@ const ws = new WebSocket("ws://localhost:8000");
 
 ws.addEventListener("open", () => {
     console.log("We are connected!");
+
+    ws.send("Hey, how's it going?");
 })
+
+ws.addEventListener("message", ({data}) => {
+    console.log(data);
+})
+
+//form button check
+
+var knop = document.getElementById("startbutton");
+var formdiv = document.getElementById("formdiv");
+var maindiv = document.getElementById("maindiv");
+
+knop.addEventListener("click", function() {
+   
+    var text = document.getElementById("text").value;
+
+    if (text === "") {
+        console.log("empty field");
+    } else {
+        console.log("notempty");
+        formdiv.style.display = "none"
+        maindiv.style.display = "block"
+        name = text;
+    }
+});
+
 
 // button click function
 
@@ -13,13 +40,14 @@ let button = document.getElementById("button");
 let check = 1;
 var clicked = false;
 
+var name
 
 button.addEventListener("click", function() {
     if (clicked) {
         return
     };
     clicked = true;
-    p.innerHTML = "<strong style='color:red'> Sam </strong> clicked the button";
+    p.innerHTML = `<strong style='color:red'>` + name + `</strong> clicked the button`;
     console.log("check");
     setTimeout(function() {
         countdown();
