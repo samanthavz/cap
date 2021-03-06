@@ -2,21 +2,49 @@
 
 const ws = new WebSocket("ws://localhost:8000");
 
+function handleIncoming(object)
+{
+    if (object.event === "registered")
+    {        
+        var formdiv = document.getElementById("formdiv");
+        var maindiv = document.getElementById("maindiv");
+
+        formdiv.style.display = "none"
+        maindiv.style.display = "block"
+        console.log("register OK")
+    }
+    else if (object.event === "already exists")
+    {
+        // maak zichtbaar dat username al bestaat
+        console.log("register failed -> already exists")
+    }
+    else if (object.event === "actual clicker")
+    {
+        p.innerHTML = `<strong style='color:red'>` + object.name + `</strong> clicked the button`;
+        clicked = true
+        setTimeout(function() {
+            countdown();
+            clicked = false;
+        }, 10000); 
+    }
+    else
+    {
+        console.log("Error: unknown server response: " + JSON.stringify(object))
+    }
+}
+
 ws.addEventListener("open", () => {
     console.log("We are connected!");
-
-    ws.send("Hey, how's it going?");
 })
 
 ws.addEventListener("message", ({data}) => {
-    console.log(data);
+    jsonObject = JSON.parse(data)
+    handleIncoming(jsonObject)
 })
 
 //form button check
 
 var knop = document.getElementById("startbutton");
-var formdiv = document.getElementById("formdiv");
-var maindiv = document.getElementById("maindiv");
 
 knop.addEventListener("click", function() {
    
@@ -26,9 +54,11 @@ knop.addEventListener("click", function() {
         console.log("empty field");
     } else {
         console.log("notempty");
-        formdiv.style.display = "none"
-        maindiv.style.display = "block"
-        name = text;
+        username = text;
+        
+        ws.send(
+            JSON.stringify({name: username, event: "connect"})
+        )
     }
 });
 
@@ -40,19 +70,17 @@ let button = document.getElementById("button");
 let check = 1;
 var clicked = false;
 
-var name
+var username
 
 button.addEventListener("click", function() {
     if (clicked) {
         return
     };
     clicked = true;
-    p.innerHTML = `<strong style='color:red'>` + name + `</strong> clicked the button`;
-    console.log("check");
-    setTimeout(function() {
-        countdown();
-        clicked = false;
-    }, 5000);    
+
+    ws.send(
+        JSON.stringify({name: username, event: "clicked"})
+    )   
 });
 
 function countdown() {
