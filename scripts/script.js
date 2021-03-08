@@ -1,6 +1,6 @@
 //websockets
 
-const ws = new WebSocket("ws://localhost:8000");
+const ws = new WebSocket("wss://sam.tverhoef.com");
 
 function handleIncoming(object)
 {
