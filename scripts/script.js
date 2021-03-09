@@ -27,6 +27,11 @@ function handleIncoming(object)
             clicked = false;
         }, 10000); 
     }
+    else if (object.event === "keep alive")
+    {
+        // drop packet, just to keep connection open
+        console.log("keep alive received")
+    }
     else
     {
         console.log("Error: unknown server response: " + JSON.stringify(object))
