@@ -2,6 +2,19 @@
 
 const ws = new WebSocket("wss://sam.tverhoef.com");
 
+function isValidName(name)
+{
+    const regex = /^[a-zA-Z0-9 ]+$/um
+    let match
+
+    if ((match = regex.exec(name)) !== null) {
+        // The result can be accessed through the `m`-variable.
+        return true
+    }
+
+    return false
+}
+
 function handleIncoming(object)
 {
     if (object.event === "registered")
@@ -32,6 +45,10 @@ function handleIncoming(object)
         // drop packet, just to keep connection open
         console.log("keep alive received")
     }
+    else if (object.event === "invalid name")
+    {
+        console.log("invalid name")
+    }
     else
     {
         console.log("Error: unknown server response: " + JSON.stringify(object))
@@ -59,6 +76,13 @@ knop.addEventListener("click", function() {
         console.log("empty field");
     } else {
         console.log("notempty");
+
+        if (!isValidName(text))
+        {
+            console.log("invalid name entered")
+            return;
+        }
+
         username = text;
         
         ws.send(
