@@ -2,6 +2,8 @@
 
 const ws = new WebSocket("wss://sam.tverhoef.com");
 
+//check if characters are allowed in form
+
 function isValidName(name)
 {
     const regex = /^[a-zA-Z0-9 ]+$/um
@@ -14,6 +16,9 @@ function isValidName(name)
 
     return false
 }
+
+
+// checks ws data, deals with the data
 
 function handleIncoming(object)
 {
@@ -29,13 +34,18 @@ function handleIncoming(object)
     else if (object.event === "already exists")
     {
         // maak zichtbaar dat username al bestaat
+        var feedback = document.getElementById("feedback");
+        feedback.innerHTML = "username already exists";
+        feedback.style.color = "red";
+        
         console.log("register failed -> already exists")
     }
     else if (object.event === "actual clicker")
     {
         var audio = new Audio("./audio/buzzersound.mp3");
-        console.log(audio);
+        audio.volume = 0.05;
         audio.play();
+        
 
         p.innerHTML = `<strong style='color:red'>` + object.name + `</strong> clicked the button`;
         clicked = true
@@ -59,6 +69,8 @@ function handleIncoming(object)
     }
 }
 
+//check if connected + logging it
+
 ws.addEventListener("open", () => {
     console.log("We are connected!");
 })
@@ -68,12 +80,11 @@ ws.addEventListener("message", ({data}) => {
     handleIncoming(jsonObject)
 })
 
-//form button check
+//form button check with start button
 
 var knop = document.getElementById("startbutton");
 
-knop.addEventListener("click", function() {
-   
+function startbutton() {
     var text = document.getElementById("text").value;
 
     if (text === "") {
@@ -93,8 +104,22 @@ knop.addEventListener("click", function() {
             JSON.stringify({name: username, event: "connect"})
         )
     }
+};
+
+knop.addEventListener("click", function() {
+   startbutton()
 });
 
+
+//no refresh function
+var form = document.getElementById("form");
+
+form.addEventListener("submit", norefresh);
+
+function norefresh(event){
+    startbutton()
+    event.preventDefault();
+};
 
 // button click function
 
@@ -120,17 +145,3 @@ function countdown() {
     console.log("check2");
     p.innerHTML = "Press the button if you know the answer";
 };
-
-
-
-// //background image png/jpg check
-
-// var fs = require('fs');
-// var files = fs.readdirSync('../images/background*');
-
-// var body = document.getElementById("body");
-
-// body.style.backgroundImage = files[0];
-
-
-// background-image: url("../images/background.jpg");
