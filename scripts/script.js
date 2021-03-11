@@ -33,6 +33,10 @@ function handleIncoming(object)
     }
     else if (object.event === "actual clicker")
     {
+        var audio = new Audio("./audio/buzzersound.mp3");
+        console.log(audio);
+        audio.play();
+
         p.innerHTML = `<strong style='color:red'>` + object.name + `</strong> clicked the button`;
         clicked = true
         setTimeout(function() {
