@@ -121,7 +121,7 @@ function norefresh(event){
     event.preventDefault();
 };
 
-// button click function
+// button click send to server
 
 let p = document.getElementById("p");
 let button = document.getElementById("button");
@@ -140,6 +140,9 @@ button.addEventListener("click", function() {
         JSON.stringify({name: username, event: "clicked"})
     )   
 });
+
+
+//text goes back to normal state
 
 function countdown() {
     console.log("check2");

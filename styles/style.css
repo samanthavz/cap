@@ -11,7 +11,7 @@
     overflow-x: hidden;
     cursor: default;
     /* background-image: url("../images/background.png"); */
-    background-color: rgba(43,9,60,255);
+    background-color: rgba(43,9,60,255); /* purple */
     background-size: 100% 100%;
    }
 
